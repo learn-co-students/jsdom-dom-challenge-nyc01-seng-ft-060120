@@ -5,6 +5,7 @@ const plus = document.getElementById("plus");
 const heart = document.getElementById("heart");
 const timeButton = document.getElementById("pause");
 const submitButton = document.getElementById("submit");
+const commentBox = document.getElementById("comment-input");
 
 let interval = window.setInterval(countUp, 1000);
 
@@ -15,6 +16,11 @@ minus.addEventListener("click", countDown);
 plus.addEventListener("click", countUp);
 heart.addEventListener("click", addLike);
 timeButton.addEventListener("click", toggle);
+submitButton.addEventListener("click", function(e){
+    e.preventDefault()
+    makeComment()
+});
+
 
 
 function countUp() {
@@ -78,4 +84,11 @@ function resume() {
 function toggle() {
     if (timeButton.innerText === "pause"){pause();}
     else {resume();}
+}
+
+function makeComment() {
+    let newComment = document.createElement("div");
+    let div = document.getElementById("list");
+    newComment.innerText = commentBox.value;
+    div.appendChild(newComment);
 }
