@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const likeList = document.querySelector(".likes")
     const likedNumbers = []
 
+    let intervalId = window.setInterval(incrementTimer, 1000)
 
     function incrementTimer(){
         timer.innerText = parseInt(timer.innerText) + 1
@@ -48,14 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
      
     function createLike() {
         const newLike = {number: `${timer.innerText}`, likes: 1}
-        console.log("here also")
         likedNumbers.push(newLike)
         const likeText = document.createElement("li")
+        likeText.classList.add(`a-${likedNumbers[likedNumbers.length - 1]["number"]}`)
         likeText.innerText = `${likedNumbers[likedNumbers.length - 1]["number"]} has been liked ${likedNumbers[likedNumbers.length -1]["likes"]} times`
         likeList.appendChild(likeText)
     }
-    
-    let intervalId = window.setInterval(incrementTimer, 1000)
 
     document.addEventListener("click", function (e) {
         if (e.target.matches("#minus")) {
@@ -66,17 +65,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         else if (e.target.matches("#heart")) {
             if (likedNumbers.length === 0){
-                console.log("here")
                 createLike();
             } else {
-                console.log(likedNumbers[0])
+                let updated = false;
                 for (let i = 0; i < likedNumbers.length; i++){
                     if (likedNumbers[i]["number"] === timer.innerText) {
-                        console.log("this number has been liked")
-                        likedNumbers[i]["likes"] += 1
-                    } else {
-                        createLike();
+                        likedNumbers[i]["likes"] = parseInt(likedNumbers[i]["likes"]) + 1;
+                        const numberLI = document.querySelector(`.a-${likedNumbers[i]["number"]}`);
+                        numberLI.innerText = `${likedNumbers[i]["number"]} has been liked ${likedNumbers[i]["likes"]} times`;
+                        updated = true;
+                        break;
                     }
+                }
+                if (updated === false) {
+                    createLike();
                 }
             }
         }
@@ -96,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 pause.innerText = "pause"
                 intervalId = window.setInterval(incrementTimer, 1000)
             }
-            
         };
     });
 
