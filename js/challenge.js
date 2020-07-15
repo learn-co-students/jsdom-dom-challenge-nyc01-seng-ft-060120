@@ -7,28 +7,28 @@ document.addEventListener("DOMContentLoaded", function(e) {
     function increment() {
         counterNumber.innerText = parseInt(counterNumber.innerText, 10) + 1;
     };
+
     function decrement() {
         counterNumber.innerText = parseInt(counterNumber.innerText, 10) - 1;
     };
 
-    
+
     function likeNumber() {
         likesArray = Array.from(likesUl.childNodes)
         idsArray = likesArray.map(li => li.id)
         potentialChildId = counterNumber.innerText
 
-        if (idsArray.includes(potentialChildId)){
-            const likedNumberSpan = likedNumberLi.querySelector('span');
-            likedNumberSpan.innerText = parseInt(likedNumberSpan.innerText) + 1;
-        }
-
-        else {    
+        if (idsArray.includes(potentialChildId)) {
+            const likeLi = document.getElementById(potentialChildId)
+            const liSpan = likeLi.querySelector('span')
+            liSpan.innerText = parseInt(liSpan.innerText) + 1
+        } else {
             const newLikeLi = document.createElement('li');
             newLikeLi.id = counterNumber.innerText;
             newLikeLi.innerHTML = `${counterNumber.innerText} was liked <span>1</span> time`;
             likesUl.appendChild(newLikeLi);
         };
-    
+
     }
 
 
