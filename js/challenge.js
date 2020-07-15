@@ -45,7 +45,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function decrementTimer(){
         timer.innerText = parseInt(timer.innerText) -1 
     }
-        
+     
+    function createLike() {
+        const newLike = {number: `${timer.innerText}`, likes: 1}
+        console.log("here also")
+        likedNumbers.push(newLike)
+        const likeText = document.createElement("li")
+        likeText.innerText = `${likedNumbers[likedNumbers.length - 1]["number"]} has been liked ${likedNumbers[likedNumbers.length -1]["likes"]} times`
+        likeList.appendChild(likeText)
+    }
     
     let intervalId = window.setInterval(incrementTimer, 1000)
 
@@ -58,12 +66,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         else if (e.target.matches("#heart")) {
             if (likedNumbers.length === 0){
-                console.log("this number has not been liked")
-                const newLike = {number: `${timer.innerText}`, likes: 1}
-                likedNumbers.push(newLike)
-                const likeText = document.createElement("li")
-                likeText.innerText = `${likedNumbers[likedNumbers.length - 1]["number"]} has been liked ${likedNumbers[likedNumbers.length -1]["likes"]} times`
-                likeList.appendChild(likeText)
+                console.log("here")
+                createLike();
             } else {
                 console.log(likedNumbers[0])
                 for (let i = 0; i < likedNumbers.length; i++){
@@ -71,23 +75,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         console.log("this number has been liked")
                         likedNumbers[i]["likes"] += 1
                     } else {
-                        console.log("this number has not been liked")
-                        const newLike = {number: `${timer.innerText}`, likes: 1}
-                        likedNumbers.push(newLike)
-                        const likeText = document.createElement("li")
-                        likeText.innerText = `${likedNumbers[likedNumbers.length - 1]["number"]} has been liked ${likedNumbers[likedNumbers.length -1]["likes"]} times`
-                        likeList.appendChild(likeText)
-                        }
+                        createLike();
                     }
+                }
             }
-
-            // const like = document.createElement("li")
-            // likeList.appendChild(like)
-
-
-                
-
-
         }
         else if (e.target.matches("#pause")){
             if (pause.innerText === "pause"){
@@ -115,6 +106,5 @@ document.addEventListener("DOMContentLoaded", function() {
         comment.innerText = commentText.value
         paragraph.appendChild(comment)
         commentText.parentNode.reset()
-    })
-    
+    }) 
 });
