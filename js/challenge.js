@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", function(e) {
     const counterNumber = document.querySelector('#counter')
     const body = document.querySelector('body')
     const likesUl = document.querySelector('.likes')
-    console.dir(likesUl.childNodes)
+    const counterCountUp = setInterval(increment, 1000)
+    const pauseButton = document.querySelector('#pause')
+
+
 
     function increment() {
         counterNumber.innerText = parseInt(counterNumber.innerText, 10) + 1;
@@ -32,29 +35,28 @@ document.addEventListener("DOMContentLoaded", function(e) {
     }
 
 
+    function pauseCounter() {
+        if (pauseButton.innerText === "pause"){
+            clearInterval(counterCountUp)
+            pauseButton.innerText = "resume"
+        }
+        else { 
+            setInterval(increment, 1000)
+            pauseButton.innerText = "pause"
+        }
+
+    }
+
+
     body.addEventListener('click', function(e) {
         if (e.target.id === 'minus') { decrement() }
         if (e.target.id === 'plus') { increment() }
         if (e.target.id === 'heart') { likeNumber() }
-        if (e.target.id === 'minus') { decrement() }
+        if (e.target.id === 'pause') { pauseCounter() }
 
     })
 
-
-
-
-
-
-
-
-
-    setInterval(increment, 1000)
-
-
-
-
-
-
+    counterCountUp
 
 
 })
