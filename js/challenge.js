@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     const counterNumber = document.querySelector('#counter')
     const body = document.querySelector('body')
     const likesUl = document.querySelector('.likes')
-    const counterCountUp = setInterval(increment, 1000)
+    const counterCountUp = setInterval(increment, 1)
     const pauseButton = document.querySelector('#pause')
 
 
@@ -36,11 +36,10 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 
     function pauseCounter() {
-        if (pauseButton.innerText === "pause"){
+        if (pauseButton.innerText === "pause") {
             clearInterval(counterCountUp)
             pauseButton.innerText = "resume"
-        }
-        else { 
+        } else {
             setInterval(increment, 1000)
             pauseButton.innerText = "pause"
         }
